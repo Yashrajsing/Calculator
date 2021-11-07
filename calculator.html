@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #calculator {
+            height: 90vh;
+            width: 60vw;
+
+            border: 2px solid black;
+            margin: auto;
+            margin-top: 20px;
+            padding: 0;
+            border-radius: 10px;
+            background-color: darkseagreen;
+        }
+
+        #buttoncontainer {
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            margin: 50px 30px 50px 30px;
+
+
+        }
+
+        button {
+            padding: 35px 0px;
+            margin: 10px;
+            border-radius: 10px;
+            font-size: x-large;
+            background-color: rgb(207, 252, 229);
+        }
+
+        button:hover {
+            background-color: coral;
+        }
+
+        #displaybox {
+            margin-top: 40px;
+            padding-left: 10vw;
+            text-align: right;
+            font-size: 50px;
+            margin-left: 80px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="calculator">
+        <input id="displaybox" type="number" placeholder="0" disabled />
+        <div id="buttoncontainer">
+            <button data-number="7" class="numbers">7</button>
+            <button data-number="8" class="numbers">8</button>
+            <button data-number="9" class="numbers">9</button>
+            <button id="divide">/</button>
+            <button data-number="4" class="numbers">4</button>
+            <button data-number="5" class="numbers">5</button>
+            <button data-number="6" class="numbers">6</button>
+            <button id="multiply">*</button>
+            <button data-number="1" class="numbers">1</button>
+            <button data-number="2" class="numbers">2</button>
+            <button data-number="3" class="numbers">3</button>
+            <button id="substract">-</button>
+            <button id="reset" type="reset">AC</button>
+            <button data-number="0" class="numbers">0</button>
+            <button id="addition">+</button>
+            <button id="equals">=</button>
+
+
+        </div>
+    </div>
+    <script>
+        let number1 = '';
+        let number2 = '';
+        let operation = '';
+
+        const calc = e => {
+            if (operation == '') {
+                number1 = number1 + e.target.dataset.number
+                display(number1)
+            }
+            else {
+                number2 = number2 + e.target.dataset.number
+                display(number2)
+            }
+        }
+
+        function display(val) {
+            var displaybox = document.getElementById('displaybox')
+            displaybox.value = val
+        }
+
+        function addition() {
+            operation = '+'
+        }
+        function substract() {
+            operation = '-'
+        }
+        function multiply() {
+            operation = '*'
+        }
+        function divide() {
+            operation = '/'
+        }
+
+        function answer() {
+            if (operation == '+') {
+                const ans = Number(number1) + Number(number2)
+                display(ans)
+            }
+            else if (operation == '-') {
+                const ans = Number(number1) - Number(number2)
+                display(ans)
+            }
+            else if (operation == '*') {
+                const ans = Number(number1) * Number(number2)
+                display(ans)
+            }
+            else if (operation == '/') {
+                const ans = Number(number1) / Number(number2)
+                display(ans)
+            }
+            operation = ''
+        }
+
+        function reset() {
+            location.reload();
+        }
+
+        document.getElementById('equals').addEventListener('click', answer)
+
+
+        document.getElementById('addition').addEventListener('click', addition)
+
+
+        document.getElementById('substract').addEventListener('click', substract)
+
+
+        document.getElementById('multiply').addEventListener('click', multiply)
+
+
+        document.getElementById('divide').addEventListener('click', divide)
+
+
+        document.getElementById('reset').addEventListener('click', reset)
+
+        let a = document.querySelectorAll('.numbers');
+        a.forEach(action => {
+            action.addEventListener('click', calc)
+        })
+    </script>
+</body>
+
+</html>
